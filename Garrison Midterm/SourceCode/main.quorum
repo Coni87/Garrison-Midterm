@@ -50,7 +50,7 @@ Vector3 force
         ball:LoadSphere(1,1,1,ballColor)
         ball:SetPosition(0,2,0)
         ball:EnablePhysics(true)
-        ball:SetResponsive()
+        ball:SetUnmovable()
         ball:SetRestitution(0.75)
 
         ground:LoadBox(15,1,20,color:green())
