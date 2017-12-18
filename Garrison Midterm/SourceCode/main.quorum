@@ -1,5 +1,4 @@
 use Libraries.Game.Game
-use Libraries.Game.Graphics.Color
 use Libraries.Game.Graphics.AmbientLight
 use Libraries.Game.Graphics.DirectionalLight
 use Libraries.Game.Graphics.Model
@@ -11,7 +10,7 @@ class Main is Game
 Model ball
 Model backWall
 Model leftWall
-Model rightWall
+Model RightWall
 Model ground
 KeyboardEvent keys
 InputMonitor im
@@ -50,13 +49,12 @@ Vector3 force
 
         ball:LoadSphere(1,1,1,ballColor)
         ball:SetPosition(0,2,0)
-        Add(ball)
         ball:EnablePhysics(true)
         ball:SetResponsive()
         ball:SetRestitution(0.75)
 
-        ground:LoadBox(15,1,20,color:Green())
-        ground:SetPosition(0,-5,0)
+        ground:LoadBox(15,1,20,color:green())
+        ground:SetPosition(0,5,0)
         Add(ground)
         ground:EnablePhysics(true)
         ground:SetUnmovable()
@@ -74,10 +72,10 @@ Vector3 force
     action Update(number seconds)
         if im:IsKeyPressed(keys:X)
             Exit()
-        end
+        
         
         if im:IsKeyPressed(keys:UP)
-            force:Set(0,11,0)
+            force:Set(2,0,0)
             ball:ApplyForceToCenter(force)
         end
         if im:IsKeyPressed(keys:DOWN)
@@ -86,7 +84,7 @@ Vector3 force
         end
 
         if im:IsKeyPressed(keys:LEFT)
-            force:Set(-2,0,0)
+            force:Set(0,10,0)
             ball:ApplyForceToCenter(force)
         end
         
@@ -100,9 +98,8 @@ Vector3 force
             ball:ApplyForceToCenter(force)
         end
         
-        if im:IsKeyPressed(keys:S)
+        if im:IsKeyPressed(keys:s)
             force:Set(0,0,-2)
             ball:ApplyForceToCenter(force)
         end
     end
-end
