@@ -2,7 +2,7 @@ use Libraries.Game.Game
 use Libraries.Game.Graphics.AmbientLight
 use Libraries.Game.Graphics.DirectionalLight
 use Libraries.Game.Graphics.Model
-use Libraries.Interface.Events.KeyboardEvent
+use Libraries.Interface.Events
 use Libraries.Game.InputMonitor
 use Libraries.Compute.Vector3
 
