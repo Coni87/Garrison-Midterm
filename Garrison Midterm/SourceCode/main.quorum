@@ -1,0 +1,108 @@
+use Libraries.Game.Game
+use Libraries.Game.Graphics.Color
+use Libraries.Game.Graphics.AmbientLight
+use Libraries.Game.Graphics.DirectionalLight
+use Libraries.Game.Graphics.Model
+use Libraries.Interface.Events.KeyboardEvent
+use Libraries.Game.InputMonitor
+use Libraries.Compute.Vector3
+
+class Main is Game
+Model ball
+Model backWall
+Model leftWall
+Model rightWall
+Model ground
+KeyboardEvent keys
+InputMonitor im
+Color color
+Color ballColor
+AmbientLight al
+DirectionalLight dl
+Vector3 force
+
+    action Main
+        StartGame()
+    end
+
+    action CreateGame
+        EnablePhysics3D(true)
+        
+        backWall:LoadBox(20,20,1,color:Gray())
+        backWall:SetPosition(0,-5,11)
+        Add(backWall)
+        backWall:EnablePhysics(true)
+        backWall:SetUnmovable()
+        
+        leftWall:LoadBox(1,20,25,color:Gray())
+        leftWall:SetPosition(-8,-5,8)
+        Add(leftWall)
+        leftWall:EnablePhysics(true)
+        leftWall:SetUnmovable()
+        
+        rightWall:LoadBox(1,20,25,color:Gray())
+        rightWall:SetPosition(8,-5,8)
+        Add(rightWall)
+        rightWall:EnablePhysics(true)
+        rightWall:SetUnmovable()
+        
+        ballColor:SetColor(1,0,0.502,1)
+
+        ball:LoadSphere(1,1,1,ballColor)
+        ball:SetPosition(0,2,0)
+        Add(ball)
+        ball:EnablePhysics(true)
+        ball:SetResponsive()
+        ball:SetRestitution(0.75)
+
+        ground:LoadBox(15,1,20,color:Green())
+        ground:SetPosition(0,-5,0)
+        Add(ground)
+        ground:EnablePhysics(true)
+        ground:SetUnmovable()
+
+        al:SetColor(0.4,0.4,0.4,1)
+        SetAmbientLight(al)
+
+        dl:SetColor(0.8,0.8,0.8,1)
+        dl:SetDirection(GetCamera3D():GetDirection())
+        Add(dl)
+        
+        SetGravity3D(0,-10,0)
+    end
+
+    action Update(number seconds)
+        if im:IsKeyPressed(keys:X)
+            Exit()
+        end
+        
+        if im:IsKeyPressed(keys:UP)
+            force:Set(0,11,0)
+            ball:ApplyForceToCenter(force)
+        end
+        if im:IsKeyPressed(keys:DOWN)
+            force:Set(0,-11,0)
+            ball:ApplyForceToCenter(force)
+        end
+
+        if im:IsKeyPressed(keys:LEFT)
+            force:Set(-2,0,0)
+            ball:ApplyForceToCenter(force)
+        end
+        
+        if im:IsKeyPressed(keys:RIGHT)
+            force:Set(2,0,0)
+            ball:ApplyForceToCenter(force)
+        end
+
+        if im:IsKeyPressed(keys:W)
+            force:Set(0,0,2)
+            ball:ApplyForceToCenter(force)
+        end
+        
+        if im:IsKeyPressed(keys:S)
+            force:Set(0,0,-2)
+            ball:ApplyForceToCenter(force)
+        end
+    end
+end
